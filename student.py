@@ -5,7 +5,7 @@ import numpy as np
 st.set_page_config(page_title="Student Exam Score Prediction", page_icon="📘")
 
 # ================= LOAD MODEL =================
-with open("student_model.pkl", "rb") as f:
+with open("saldf.pkl", "rb") as f:
     model = pickle.load(f)
 
 # Try loading scaler (if used in training)
@@ -49,3 +49,4 @@ if st.button("Predict Exam Score"):
 # ================= DEBUG (OPTIONAL) =================
 with st.expander("Debug Info"):
     st.write("Model expects features:", model.n_features_in_)
+
