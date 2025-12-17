@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import numpy as np
+import pandas as pd
 
 st.set_page_config(page_title="Student Exam Score Prediction", page_icon="📘")
 
@@ -8,11 +9,15 @@ st.set_page_config(page_title="Student Exam Score Prediction", page_icon="📘")
 with open("saldf.pkl", "rb") as f:
     model = pickle.load(f)
 
-# Try loading scaler (if used during training)
+# 🔐 SAFETY CHECK
+if isinstance(model, pd.DataFrame):
+    st.error("❌ student_model.pkl is a DataFrame, not a trained ML model.")
+    st.stop()
+
+# Load scaler if exists
 scaler = None
 try:
-    with open("scaler.pkl", "rb") as f:
-        scaler = pickle.load(f)
+    scaler = pickle.load(open("scaler.pkl", "rb"))
 except:
     pass
 
@@ -28,7 +33,6 @@ sleep_hours = st.number_input("Sleep Hours per Day", min_value=0.0)
 # ================= PREDICTION =================
 if st.button("Predict Exam Score"):
 
-    # INPUT ORDER MUST MATCH TRAINING ORDER
     input_data = np.array([[study_hours,
                              attendance,
                              previous_score,
