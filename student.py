@@ -6,7 +6,7 @@ import pandas as pd
 st.set_page_config(page_title="Student Exam Score Prediction", page_icon="📘")
 
 # Load model
-with open("linear_regression_model(2).pkl", "rb") as f:
+with open("linear_regression_model (2).pkl", "rb") as f:
     model = pickle.load(f)
 
 # Safety check
@@ -25,6 +25,7 @@ if st.button("Predict Exam Score"):
     input_data = np.array([[study_hours, attendance, previous_score, sleep_hours]])
     prediction = model.predict(input_data)
     st.success(f"📊 Predicted Exam Score: {prediction[0]:.2f}")
+
 
 
 
